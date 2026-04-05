@@ -1,0 +1,144 @@
+/* ── Animated Glowing Search Bar ── */
+
+.glowing-search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    border-radius: 50px;
+}
+
+/* ── Rotating border glow layers ── */
+.glowing-search-border-layer {
+    position: absolute;
+    inset: 0;
+    border-radius: 50px;
+    overflow: hidden;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.glowing-search-border-layer::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    transform: translate(-50%, -50%) rotate(60deg);
+    transition: transform 2s ease;
+}
+
+.glowing-search-wrapper:hover .glowing-search-border-layer::before,
+.glowing-search-wrapper.focused .glowing-search-border-layer::before {
+    transform: translate(-50%, -50%) rotate(420deg);
+    transition-duration: 4s;
+}
+
+.layer-1::before {
+    background: conic-gradient(
+        transparent,
+        #402fb5 5%,
+        transparent 38%,
+        transparent 50%,
+        #cf30aa 60%,
+        transparent 87%
+    );
+    filter: blur(3px);
+}
+
+.layer-2::before {
+    background: conic-gradient(
+        transparent 0%,
+        #18116a 5%,
+        transparent 10%,
+        transparent 50%,
+        #6e1b60 55%,
+        transparent 60%
+    );
+    filter: blur(2px);
+    transform: translate(-50%, -50%) rotate(82deg);
+}
+
+.glowing-search-wrapper:hover .layer-2::before,
+.glowing-search-wrapper.focused .layer-2::before {
+    transform: translate(-50%, -50%) rotate(442deg);
+}
+
+.layer-3::before {
+    background: conic-gradient(
+        transparent 0%,
+        #a099d8 4%,
+        transparent 8%,
+        transparent 50%,
+        #dfa2da 54%,
+        transparent 58%
+    );
+    filter: blur(1px) brightness(1.4);
+    transform: translate(-50%, -50%) rotate(83deg);
+}
+
+.glowing-search-wrapper:hover .layer-3::before,
+.glowing-search-wrapper.focused .layer-3::before {
+    transform: translate(-50%, -50%) rotate(443deg);
+}
+
+/* ── Inner field surface ── */
+.glowing-search-inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 50px;
+    background: rgba(1, 2, 1, 0.95);
+    z-index: 1;
+    transition: background 0.3s ease;
+}
+
+.glowing-search-wrapper:hover .glowing-search-inner,
+.glowing-search-wrapper.focused .glowing-search-inner {
+    background: rgba(10, 8, 20, 0.95);
+}
+
+/* ── Search icon ── */
+.glowing-search-icon {
+    color: rgba(200, 180, 220, 0.6);
+    flex-shrink: 0;
+    transition: color 0.3s ease;
+}
+
+.glowing-search-wrapper:hover .glowing-search-icon,
+.glowing-search-wrapper.focused .glowing-search-icon {
+    color: rgba(167, 139, 250, 0.9);
+}
+
+/* ── Input field ── */
+.glowing-search-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(230, 225, 240, 0.9);
+    width: 100px;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glowing-search-input::placeholder {
+    color: rgba(180, 170, 200, 0.4);
+}
+
+.glowing-search-input:focus {
+    width: 160px;
+}
+
+@media (min-width: 1024px) {
+    .glowing-search-input {
+        width: 120px;
+    }
+    .glowing-search-input:focus {
+        width: 200px;
+    }
+}
